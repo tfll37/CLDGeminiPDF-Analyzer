@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CLDGeminiPDF">
+    <output-path>$PROJECT_DIR$/out/artifacts/CLDGeminiPDF</output-path>
+    <root id="archive" name="CLDGeminiPDF.jar" />
+  </artifact>
+</component>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example.mcp</groupId>
+    <artifactId>gemini-pdf-analyzer</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <!--
+            If you set maven.compiler.release, you generally don't need
+            maven.compiler.source and maven.compiler.target explicitly
+            for the compiler plugin itself, but some other plugins might
+            still look at source/target. It's fine to keep them or remove them
+            if only relying on the release tag in the compiler plugin.
+            Let's keep them for broader compatibility with other potential plugins,
+            but ensure they match the release level.
+        -->
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.release>23</maven.compiler.release> <!-- Preferred way to set Java version for compilation -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mcp.sdk.version>0.9.0</mcp.sdk.version> <!-- Use the latest stable MCP SDK version -->
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.modelcontextprotocol.sdk</groupId>
+                <artifactId>mcp-bom</artifactId>
+                <version>${mcp.sdk.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Core MCP SDK -->
+        <dependency>
+            <groupId>io.modelcontextprotocol.sdk</groupId>
+            <artifactId>mcp</artifactId>
+        </dependency>
+
+        <!-- Jackson for JSON processing (MCP SDK might bring it transitively, but good to be explicit) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.0</version> <!-- Updated to a more recent compatible version -->
+        </dependency>
+
+        <!-- Apache PDFBox for PDF text extraction -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>3.0.2</version> <!-- Or a newer compatible version if available -->
+        </dependency>
+
+        <!-- HTTP Client (Java 11+ built-in) - no explicit dependency needed for basic use -->
+        <!-- If you prefer Apache HttpClient:
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.2.1</version>
+        </dependency>
+        -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version> <!-- Updated to a recent version for better JDK 23 support -->
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                    <!--
+                        Alternatively, if not using <release> in properties or directly here:
+                        <source>23</source>
+                        <target>23</target>
+                    -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.2</version> <!-- Updated to a more recent version -->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.example.mcp.GeminiPdfAnalyzerServer</mainClass>
+                                </transformer>
+                            </transformers>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
