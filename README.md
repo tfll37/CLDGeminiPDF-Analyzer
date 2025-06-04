@@ -1,6 +1,6 @@
 # CLDGeminiPDF MCP Server
 
-A Model Context Protocol (MCP) server that enables [Claude Desktop](https://claude.ai/download) to analyze PDF documents using Google's AI models. This server sends PDF files & extracts text from PDFs by leveraging Gemini's powerful language understanding to provide intelligent analysis and insights.
+A [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server that enables [Claude Desktop](https://claude.ai/download) to analyze PDF documents using Google's AI models. This server sends PDF files & extracts text from PDFs by leveraging Gemini's powerful language understanding to provide intelligent analysis and insights.
 
 ## Quick Start
 
