@@ -23,7 +23,7 @@ A [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server
 - **Maven** (for building from source)
 - **Google AI Studio API Key** (free at [aistudio.google.com](https://aistudio.google.com))
 - **Claude Desktop** application
-- **Filesystem MCP Server** (required dependency)
+- [**Filesystem MCP Server**](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) (required dependency)
 
 ## Installation
 
